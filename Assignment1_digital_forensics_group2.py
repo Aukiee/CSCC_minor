@@ -47,7 +47,7 @@ transactions_sorted.reset_index(inplace=True)
 # get top 10 values
 top10 = transactions_sorted[['Seller', 'Successful number of transactions','Name']].iloc[:10]
 # show in console and output it as a file
-top10.to_excel('seller_rating_top_10.xlsx')
+top10.to_excel('seller_transactions_top_10.xlsx')
 print(top10,"\n\n")
 
 
