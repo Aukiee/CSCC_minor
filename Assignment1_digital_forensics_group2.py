@@ -46,6 +46,8 @@ transactions_sorted.reset_index(inplace=True)
 
 # get top 10 values
 top10 = transactions_sorted[['Seller', 'Successful number of transactions','Name']].iloc[:10]
+# show in console and output it as a file
+top10.to_excel('seller_rating_top_10.xlsx')
 print(top10,"\n\n")
 
 
@@ -60,6 +62,20 @@ star_rating_sorted.reset_index(inplace=True)
 
 # get top 10 values
 top10 = star_rating_sorted[['Seller', 'Seller rating (%)']].iloc[:10]
+# show in console and output it as a file
+top10.to_excel('seller_rating_top_10.xlsx')
 print(top10,"\n\n")
+
+
+
+# Get plot of prices per category
+excel_sheet_data.boxplot(by = 'Category', column = ['Price'], rot = 60, grid = False, sym = "")  
+plt.title('Price in $ per category')
+plt.suptitle('')
+plt.xlabel('')
+plt.show()
+
+
+
 
 
