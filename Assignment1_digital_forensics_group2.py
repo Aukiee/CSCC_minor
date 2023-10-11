@@ -45,7 +45,7 @@ transactions_sorted = unique_sellers.sort_values('Successful number of transacti
 transactions_sorted.reset_index(inplace=True)
 
 # get top 10 values
-top10 = transactions_sorted[['Seller', 'Successful number of transactions']].iloc[:10]
+top10 = transactions_sorted[['Seller', 'Successful number of transactions','Name']].iloc[:10]
 print(top10,"\n\n")
 
 
