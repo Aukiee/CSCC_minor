@@ -37,7 +37,7 @@ bitcoin_users.to_excel('bitcoin_users.xlsx')
 print('The messages that mention BTC can be found in bitcoin_users.xlsx \n\n')
 
 # Gmail users
-gmail_users = csv_reader[csv_reader['from'].str.contains('@gmail')]
+gmail_users = csv_reader[csv_reader['body_en'].str.contains('@gmail')]
 gmail_users.to_excel('gmail_users.xlsx')
 print('The messages that are from a gmail account can be found in gmail_users.xlsx \n\n')
 
