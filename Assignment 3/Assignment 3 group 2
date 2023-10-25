@@ -1,0 +1,60 @@
+# Group 2 - Digital forensic assignment 3
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Importing data
+with open('datacsv.txt',  encoding="UTF8", errors='ignore') as source_file:
+    csv_reader = pd.read_csv(source_file, delimiter=",")
+    
+    
+# Retrieving the used column headers
+# This could possibly be automated to automatically adjust in the script
+print('The column headers are: ', csv_reader.columns, '\n\n')
+
+
+# Count the messages in record
+amt_records = csv_reader.count()
+print('The amount of messages in the data record are: ', amt_records[0], '\n\n')
+    
+
+# Most messages per person
+print('Top 10 of amount of messages per sender are: \n')
+amount_sender_messages = csv_reader.groupby('from')['Unnamed: 0'].count().sort_values(ascending=False)
+print(amount_sender_messages[:9], '\n')
+
+
+
+# Avererage amount of messages per person
+mean_per = amount_sender_messages.mean()
+print('The average amount of messages per person is: ', mean_per, 'messages \n\n')
+
+
+
+# Bitcoin users
+bitcoin_users = csv_reader[csv_reader['body_en'].str.contains('BTC')]
+#print('All mentions of BTC in messages: \n\n', bitcoin_users[['from' ,'body_en']], '\n\n')
+bitcoin_users.to_excel('bitcoin_users.xlsx')
+print('The messages that mention BTC can be found in bitcoin_users.xlsx \n\n')
+
+# Finding URLS in messages
+possible_urls = ['.html', '.com']
+with pd.ExcelWriter('url_messages.xlsx') as writer:
+    for url_type in possible_urls:
+        url_messages = csv_reader[csv_reader['body_en'].str.contains(url_type)]
+        url_messages.to_excel(writer, sheet_name = (url_type))
+print('The messages that contain a .html or .com can be found in url_messages.xlsx \n\n')
+
+
+# trying to find roles in the organisation
+possible_roles = ['decryptor', 'encryptor', 'coder', 'maintainer', 'manager', 'recruiter', 'accountant', 'tester', 'exfiltrator' ]
+print('The messages are filtered for the following roles in the organisation:', possible_roles)
+with pd.ExcelWriter('roles_messages.xlsx') as writer:
+    for role in possible_roles:
+        earning_users = csv_reader[csv_reader['body_en'].str.contains(role, case=False)]
+        earning_users.to_excel(writer, sheet_name = (role))
+print('All messages that mention one of these roles can be found in roles_messages.xlsx')
+
+
+
+
+
